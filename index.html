@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tsu-ching (Sofi) Tien</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg: #09090b;           /* Pure dark minimalist background */
+            --text-primary: #fafafa; /* Stark white text */
+            --text-secondary: #a1a1aa; /* Muted gray for description */
+            --accent: #3b82f6;       /* Clean subtle blue */
+            --border: #27272a;       /* Thin separator line */
+        }
+
+        body {
+            font-family: 'Geist', -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-primary);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+            letter-spacing: -0.01em;
+        }
+
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        /* Hero / Contact Header */
+        header {
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin: 0 0 8px 0;
+            letter-spacing: -0.03em;
+        }
+
+        .roles {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            font-weight: 400;
+        }
+
+        .meta-info {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .meta-info a {
+            color: var(--text-primary);
+            text-decoration: none;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 2px;
+            transition: border-color 0.2s;
+        }
+
+        .meta-info a:hover {
+            border-color: var(--text-primary);
+        }
+
+        /* Abstract Section Sections */
+        section {
+            margin-bottom: 45px;
+        }
+
+        .section-title {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        /* Experience Block Minimal list */
+        .exp-block {
+            margin-bottom: 30px;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 6px;
+        }
+
+        .exp-title {
+            font-size: 1.05rem;
+            font-weight: 500;
+        }
+
+        .exp-company {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .exp-date {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .bullets {
+            margin: 0;
+            padding-left: 18px;
+            color: var(--text-secondary);
+            font-size: 0.93rem;
+        }
+
+        .bullets li {
+            margin-bottom: 8px;
+        }
+
+        .bullets b {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        /* Skills Inline Text */
+        .skills-text {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .skills-text span {
+            color: var(--text-primary);
+            font-weight: 500;
+        }
+
+        footer {
+            margin-top: 80px;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            border-top: 1px solid var(--border);
+            padding-top: 20px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <!-- Header Info -->
+        <header>
+            <h1>Tsu-ching (Sofi) Tien</h1>
+            <div class="roles">Lead Business Intelligence Engineer & Data Scientist</div>
+            <div class="meta-info">
+                <span>Seattle, WA</span>
+                <span>206-396-9636</span>
+                <a href="mailto:workingchingching@gmail.com">workingchingching@gmail.com</a>
+                <a href="https://linkedin.com/in/chingtien/" target="_blank">LinkedIn</a>
+                <a href="https://github.com" target="_blank">GitHub</a>
+            </div>
+        </header>
+
+        <!-- Experience -->
+        <section>
+            <div class="section-title">Experience</div>
+
+            <!-- ACI -->
+            <div class="exp-block">
+                <div class="exp-header">
+                    <div class="exp-title">Lead Business Intelligence Engineer <span class="exp-company">— ACI Communications</span></div>
+                    <div class="exp-date">Nov 2024 – Present</div>
+                </div>
+                <ul class="bullets">
+                    <li>Proposed and implemented supply chain optimization strategies, integrating <b>Oracle ERP</b> with <b>Power BI</b> to build real-time dashboards, cutting manual reporting latency from hours to seconds.</li>
+                    <li>Collaborated with cross-functional stakeholders and core engineers to design key business metrics, driving organizational KPI development and data-driven goal setting.</li>
+                </ul>
+            </div>
+
+            <!-- Army Reserve -->
+            <div class="exp-block">
+                <div class="exp-header">
+                    <div class="exp-title">Service Member <span class="exp-company">— United States Army Reserve</span></div>
+                    <div class="exp-date">Concurrent</div>
+                </div>
+                <ul class="bullets">
+                    <li>Maintain operational mission readiness under highly regulated environments while simultaneously managing corporate enterprise commitments.</li>
+                    <li>Execute complex logistics workflows, resource allocation tasks, and data compliance audits to ensure absolute institutional process efficiency.</li>
+                </ul>
+            </div>
+
+            <!-- Doorstead -->
+            <div class="exp-block">
+                <div class="exp-header">
+                    <div class="exp-title">Senior Data Scientist, Operation and Finance <span class="exp-company">— Doorstead</span></div>
+                    <div class="exp-date">Dec 2022 – July 2024</div>
+                </div>
+                <ul class="bullets">
+                    <li>Spearheaded funnel analysis into user behavior journeys, driving a <b>50% increase in annual renewal rates</b> (from 20% to 30%) through data-driven targeted loyalty initiatives.</li>
+                    <li>Conducted comprehensive revenue analysis, advising C-level executives on revenue optimization strategies across critical stages of the SaaS product lifecycle.</li>
+                    <li>Optimized marketing efficiency by executing strategic <b>A/B testing</b> and statistical experimentation, successfully dropping customer acquisition costs (CAC) by <b>50%</b>.</li>
+                    <li>Designed and scaled enterprise relational databases and dashboards to deliver accessible, high-impact business indicators for cross-functional management teams.</li>
+                </ul>
+            </div>
+
+            <!-- Gamania -->
+            <div class="exp-block">
+                <div class="exp-header">
+                    <div class="exp-title">Senior Data Scientist, Marketing and Operation <span class="exp-company">— Gamania Gaming</span></div>
+                    <div class="exp-date">Feb 2021 – Dec 2022</div>
+                </div>
+                <ul class="bullets">
+                    <li>Engineered cross-device player engagement metrics, improving global revenue forecasting precision by <b>5%</b> and mapping core indicators of long-term revenue pipelines.</li>
+                    <li>Monitored and modeled behavioral metrics for over <b>500,000 Daily Active Users (DAU)</b> across an extensive game portfolio using dynamic automated dashboards.</li>
+                    <li>Partnered with product engineering to optimize launches in foreign market verticals, decreasing churn rates and generating a <b>10%+ increase in user retention</b>.</li>
+                </ul>
+            </div>
+
+            <!-- Adenovo -->
+            <div class="exp-block">
+                <div class="exp-header">
+                    <div class="exp-title">Data Scientist, Product and Marketing <span class="exp-company">— Adenovo</span></div>
+                    <div class="exp-date">Feb 2020 – Feb 2021</div>
+                </div>
+                <ul class="bullets">
+                    <li>Mentored junior analysts to deploy production ML solutions, including an <b>OCR pipeline identifying 90%+ of target data</b> and an NLP system that dropped manual feedback sorting by <b>70%</b>.</li>
+                    <li>Deployed classification models to detect default behaviors in financial products, successfully mitigating risk by reducing default rates from <b>20% to 10%</b> while increasing review task efficiency by 80%.</li>
+                    <li>Built unsupervised clustering models to track user lifestyle cohorts, mapping actionable customer profile metrics to guide market segmentation strategies.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Technical Competencies -->
+        <section>
+            <div class="section-title">Skills</div>
+            <div class="skills-text">
+                <span>Languages & Frameworks:</span> SQL, Python, R, SAS, Advanced Excel (VBA)<br>
+                <span>Data Engineering & BI:</span> Power BI, Tableau, ETL/ELT Pipelines, Data Modeling, Data Warehousing, Google Data Studio<br>
