@@ -1,0 +1,1650 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ching Tien is a Seattle-based product analytics and decision science professional combining behavioral research, SQL, Python, experimentation, and business intelligence.">
+  <meta name="theme-color" content="#080a0f">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ching Tien — Product Analytics &amp; Decision Science">
+  <meta property="og:description" content="Behavioral science, product analytics, experimentation, and business intelligence—translated into better decisions.">
+  <meta property="og:url" content="https://chingtien.github.io/">
+  <link rel="canonical" href="https://chingtien.github.io/">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23080a0f'/%3E%3Cpath d='M41 17a19 19 0 1 0 0 30' fill='none' stroke='%237ef0c4' stroke-width='7' stroke-linecap='round'/%3E%3Cpath d='M44 19v27' fill='none' stroke='%23a979ff' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E">
+  <title>Ching Tien — Product Analytics &amp; Decision Science</title>
+
+  <script>document.documentElement.classList.add('js');</script>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080a0f;
+      --bg-soft: #0d1119;
+      --surface: rgba(18, 23, 34, 0.76);
+      --surface-solid: #121722;
+      --text: #f5f7fb;
+      --muted: #a8b0c0;
+      --line: rgba(255, 255, 255, 0.11);
+      --line-strong: rgba(255, 255, 255, 0.2);
+      --cyan: #7ef0c4;
+      --blue: #7b8cff;
+      --violet: #a979ff;
+      --green: #7ef0c4;
+      --max: 1180px;
+      --radius: 24px;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 92px;
+    }
+
+    body {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 84% 8%, rgba(123, 140, 255, 0.15), transparent 28rem),
+        radial-gradient(circle at 4% 38%, rgba(99, 230, 255, 0.08), transparent 27rem),
+        var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body::before {
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, black, transparent 72%);
+    }
+
+    ::selection {
+      color: #05080d;
+      background: var(--cyan);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--cyan);
+      outline-offset: 4px;
+      border-radius: 8px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 12px;
+      left: 12px;
+      z-index: 100;
+      padding: 10px 14px;
+      transform: translateY(-150%);
+      border-radius: 10px;
+      background: var(--text);
+      color: var(--bg);
+      font-weight: 700;
+      transition: transform 180ms ease;
+    }
+
+    .skip-link:focus {
+      transform: translateY(0);
+    }
+
+    .container {
+      width: min(calc(100% - 40px), var(--max));
+      margin-inline: auto;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      border-bottom: 1px solid transparent;
+      background: rgba(8, 10, 15, 0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      transition: border-color 180ms ease, background 180ms ease;
+    }
+
+    .site-header.scrolled {
+      border-color: var(--line);
+      background: rgba(8, 10, 15, 0.9);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 76px;
+      gap: 28px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border: 1px solid var(--line-strong);
+      border-radius: 11px;
+      background: linear-gradient(145deg, rgba(99, 230, 255, 0.16), rgba(183, 124, 255, 0.14));
+      color: var(--cyan);
+      font-size: 13px;
+      font-weight: 850;
+      letter-spacing: -0.06em;
+      box-shadow: inset 0 0 24px rgba(99, 230, 255, 0.07);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+      margin-left: auto;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav-links a {
+      transition: color 160ms ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+    }
+
+    .button {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      padding: 0 18px;
+      border: 1px solid transparent;
+      border-radius: 13px;
+      font-size: 14px;
+      font-weight: 750;
+      letter-spacing: -0.01em;
+      transition: transform 180ms ease, border-color 180ms ease, background 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+    }
+
+    .button-primary {
+      background: var(--text);
+      color: #080a0f;
+      box-shadow: 0 10px 32px rgba(99, 230, 255, 0.12);
+    }
+
+    .button-primary:hover {
+      background: var(--cyan);
+    }
+
+    .button-secondary {
+      border-color: var(--line-strong);
+      background: rgba(255, 255, 255, 0.035);
+      color: var(--text);
+    }
+
+    .button-secondary:hover {
+      border-color: rgba(99, 230, 255, 0.46);
+      background: rgba(99, 230, 255, 0.07);
+    }
+
+    .button svg,
+    .text-link svg {
+      width: 17px;
+      height: 17px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .hero {
+      display: grid;
+      min-height: calc(100vh - 76px);
+      align-items: center;
+      grid-template-columns: minmax(0, 1.18fr) minmax(340px, 0.82fr);
+      gap: clamp(44px, 7vw, 92px);
+      padding-block: 72px 84px;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      margin: 0 0 22px;
+      color: var(--cyan);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      width: 28px;
+      height: 1px;
+      content: "";
+      background: currentColor;
+    }
+
+    .hero h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(3.45rem, 7vw, 6.7rem);
+      font-weight: 790;
+      letter-spacing: -0.073em;
+      line-height: 0.94;
+    }
+
+    .hero h1 .gradient-text {
+      display: block;
+      color: transparent;
+      background: linear-gradient(100deg, var(--cyan), #a8c2ff 52%, var(--violet));
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .hero-copy {
+      max-width: 675px;
+      margin: 30px 0 0;
+      color: var(--muted);
+      font-size: clamp(1.06rem, 1.8vw, 1.22rem);
+      line-height: 1.72;
+    }
+
+    .hero-copy strong {
+      color: var(--text);
+      font-weight: 650;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 34px;
+    }
+
+    .availability {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 30px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .availability-dot {
+      position: relative;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 18px rgba(99, 245, 177, 0.74);
+    }
+
+    .availability-dot::after {
+      position: absolute;
+      inset: -5px;
+      border: 1px solid rgba(99, 245, 177, 0.34);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .hero-panel {
+      position: relative;
+      isolation: isolate;
+    }
+
+    .hero-panel::before {
+      position: absolute;
+      inset: 10% -10% -8% 10%;
+      z-index: -1;
+      border-radius: 50%;
+      content: "";
+      background: rgba(123, 140, 255, 0.22);
+      filter: blur(70px);
+    }
+
+    .system-card {
+      overflow: hidden;
+      border: 1px solid var(--line-strong);
+      border-radius: 26px;
+      background: linear-gradient(155deg, rgba(24, 31, 46, 0.94), rgba(12, 15, 23, 0.92));
+      box-shadow: var(--shadow);
+      transform: rotate(1.2deg);
+    }
+
+    .system-topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 18px;
+      border-bottom: 1px solid var(--line);
+      color: #c4cbda;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .window-dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .window-dots span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .system-body {
+      padding: 26px;
+    }
+
+    .system-label {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .focus-map {
+      display: grid;
+      gap: 10px;
+    }
+
+    .focus-row {
+      display: grid;
+      align-items: center;
+      grid-template-columns: 90px 1fr auto;
+      gap: 13px;
+      padding: 12px 13px;
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.025);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .focus-key {
+      color: var(--cyan);
+    }
+
+    .focus-value {
+      overflow: hidden;
+      color: #d9ddea;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .focus-status {
+      color: var(--green);
+      font-size: 10px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .signal-visual {
+      position: relative;
+      height: 150px;
+      margin-top: 18px;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background:
+        linear-gradient(rgba(99, 230, 255, 0.055) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(99, 230, 255, 0.055) 1px, transparent 1px),
+        rgba(4, 8, 14, 0.66);
+      background-size: 22px 22px;
+    }
+
+    .signal-visual svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .signal-line {
+      fill: none;
+      stroke: url(#signalGradient);
+      stroke-width: 2.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      filter: drop-shadow(0 0 7px rgba(99, 230, 255, 0.55));
+    }
+
+    .system-footer {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 17px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 11px;
+    }
+
+    .system-footer span:last-child {
+      color: var(--cyan);
+    }
+
+    .metrics-wrap {
+      border-block: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.018);
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+    }
+
+    .metric {
+      min-height: 154px;
+      padding: 32px clamp(18px, 3vw, 34px);
+      border-right: 1px solid var(--line);
+    }
+
+    .metric:first-child {
+      padding-left: 0;
+    }
+
+    .metric:last-child {
+      padding-right: 0;
+      border-right: 0;
+    }
+
+    .metric-value {
+      display: block;
+      color: var(--text);
+      font-size: clamp(2rem, 4vw, 3.15rem);
+      font-weight: 760;
+      letter-spacing: -0.06em;
+      line-height: 1;
+    }
+
+    .metric-value .accent {
+      color: var(--cyan);
+    }
+
+    .metric-label {
+      display: block;
+      max-width: 190px;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .section {
+      padding-block: clamp(92px, 12vw, 152px);
+    }
+
+    .section-header {
+      display: grid;
+      align-items: end;
+      grid-template-columns: minmax(0, 0.9fr) minmax(300px, 0.65fr);
+      gap: 54px;
+      margin-bottom: 52px;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(2.45rem, 5vw, 4.55rem);
+      font-weight: 750;
+      letter-spacing: -0.06em;
+      line-height: 1.02;
+    }
+
+    .section-intro {
+      max-width: 530px;
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: 17px;
+      line-height: 1.7;
+    }
+
+    .ai-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .project-card {
+      position: relative;
+      min-height: 360px;
+      overflow: hidden;
+      padding: clamp(26px, 4vw, 42px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.14);
+      transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(99, 230, 255, 0.28);
+      background: rgba(21, 27, 40, 0.93);
+    }
+
+    .project-card:first-child {
+      grid-column: span 7;
+      background:
+        radial-gradient(circle at 90% 10%, rgba(99, 230, 255, 0.1), transparent 16rem),
+        var(--surface);
+    }
+
+    .project-card:nth-child(2) {
+      grid-column: span 5;
+    }
+
+    .project-card:nth-child(3) {
+      grid-column: 3 / span 8;
+      min-height: 320px;
+    }
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .project-number {
+      color: var(--cyan);
+    }
+
+    .project-card h3 {
+      max-width: 550px;
+      margin: 58px 0 18px;
+      font-size: clamp(1.7rem, 3vw, 2.55rem);
+      font-weight: 700;
+      letter-spacing: -0.045em;
+      line-height: 1.1;
+    }
+
+    .project-card p {
+      max-width: 610px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .tag {
+      padding: 6px 10px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      color: #ccd2de;
+      background: rgba(255, 255, 255, 0.028);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .experience-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.58fr) minmax(0, 1.42fr);
+      gap: clamp(52px, 9vw, 112px);
+    }
+
+    .experience-aside {
+      align-self: start;
+    }
+
+    .experience-aside p {
+      max-width: 310px;
+      margin: 24px 0 0;
+      color: var(--muted);
+    }
+
+    .timeline {
+      border-top: 1px solid var(--line-strong);
+    }
+
+    .role {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 28px;
+      padding-block: 40px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .role-date {
+      padding-top: 5px;
+      color: var(--muted);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      line-height: 1.55;
+      text-transform: uppercase;
+    }
+
+    .role h3 {
+      margin: 0;
+      font-size: clamp(1.45rem, 2.3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.035em;
+      line-height: 1.2;
+    }
+
+    .company {
+      display: block;
+      margin-top: 8px;
+      color: var(--cyan);
+      font-size: 14px;
+      font-weight: 650;
+      letter-spacing: 0;
+    }
+
+    .role ul {
+      display: grid;
+      gap: 12px;
+      margin: 24px 0 0;
+      padding: 0;
+      color: var(--muted);
+      list-style: none;
+    }
+
+    .role li {
+      position: relative;
+      padding-left: 22px;
+    }
+
+    .role li::before {
+      position: absolute;
+      top: 0.73em;
+      left: 0;
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      content: "";
+      background: var(--blue);
+      box-shadow: 0 0 12px rgba(123, 140, 255, 0.42);
+    }
+
+    .role strong {
+      color: #e8ebf2;
+      font-weight: 650;
+    }
+
+    .skills-section {
+      position: relative;
+      border-block: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.018);
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      margin-top: 52px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(8, 10, 15, 0.35);
+    }
+
+    .skill-group {
+      min-height: 310px;
+      padding: 30px 26px;
+      border-right: 1px solid var(--line);
+    }
+
+    .skill-group:last-child {
+      border-right: 0;
+    }
+
+    .skill-icon {
+      display: grid;
+      width: 38px;
+      height: 38px;
+      place-items: center;
+      margin-bottom: 42px;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      color: var(--cyan);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      font-weight: 750;
+    }
+
+    .skill-group h3 {
+      margin: 0 0 18px;
+      font-size: 18px;
+      letter-spacing: -0.025em;
+    }
+
+    .skill-list {
+      margin: 0;
+      padding: 0;
+      color: var(--muted);
+      list-style: none;
+      font-size: 14px;
+      line-height: 1.85;
+    }
+
+    .education-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+
+    .education-card {
+      padding: clamp(28px, 4vw, 42px);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .education-year {
+      color: var(--cyan);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 12px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .education-card h3 {
+      margin: 36px 0 9px;
+      font-size: clamp(1.5rem, 2.8vw, 2.15rem);
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      line-height: 1.15;
+    }
+
+    .education-card h4 {
+      margin: 0;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 550;
+    }
+
+    .education-card p {
+      margin: 28px 0 0;
+      color: var(--muted);
+    }
+
+    .award {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 24px;
+      padding: 7px 11px;
+      border: 1px solid rgba(183, 124, 255, 0.24);
+      border-radius: 999px;
+      color: #dcbfff;
+      background: rgba(183, 124, 255, 0.065);
+      font-size: 12px;
+      font-weight: 650;
+    }
+
+    .contact-section {
+      padding-block: clamp(94px, 14vw, 170px) 70px;
+    }
+
+    .contact-card {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(36px, 7vw, 84px);
+      border: 1px solid var(--line-strong);
+      border-radius: 30px;
+      background:
+        radial-gradient(circle at 80% 15%, rgba(183, 124, 255, 0.18), transparent 24rem),
+        radial-gradient(circle at 12% 90%, rgba(99, 230, 255, 0.12), transparent 22rem),
+        #101521;
+      box-shadow: var(--shadow);
+    }
+
+    .contact-card::after {
+      position: absolute;
+      top: -80px;
+      right: -60px;
+      width: 260px;
+      height: 260px;
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 50%;
+      content: "";
+      box-shadow:
+        0 0 0 42px rgba(255, 255, 255, 0.018),
+        0 0 0 84px rgba(255, 255, 255, 0.012);
+    }
+
+    .contact-card h2 {
+      position: relative;
+      z-index: 1;
+      max-width: 790px;
+      margin: 0;
+      font-size: clamp(2.65rem, 6.2vw, 5.5rem);
+      font-weight: 760;
+      letter-spacing: -0.065em;
+      line-height: 0.98;
+    }
+
+    .contact-bottom {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 30px;
+      margin-top: 46px;
+    }
+
+    .contact-copy {
+      max-width: 500px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 17px;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding-top: 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 22px;
+    }
+
+    .footer a:hover {
+      color: var(--text);
+    }
+
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 700ms cubic-bezier(.2, .7, .2, 1), transform 700ms cubic-bezier(.2, .7, .2, 1);
+    }
+
+    .js .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 960px) {
+      .hero {
+        min-height: auto;
+        grid-template-columns: 1fr;
+        padding-top: 88px;
+      }
+
+      .hero-panel {
+        width: min(100%, 600px);
+      }
+
+      .metrics {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .metric:nth-child(2) {
+        border-right: 0;
+      }
+
+      .metric:nth-child(-n+2) {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .metric:nth-child(3) {
+        padding-left: 0;
+      }
+
+      .section-header,
+      .experience-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+      }
+
+      .project-card:first-child,
+      .project-card:nth-child(2),
+      .project-card:nth-child(3) {
+        grid-column: span 12;
+      }
+
+      .skills-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .skill-group:nth-child(2) {
+        border-right: 0;
+      }
+
+      .skill-group:nth-child(-n+2) {
+        border-bottom: 1px solid var(--line);
+      }
+
+      .contact-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        width: min(calc(100% - 28px), var(--max));
+      }
+
+      .nav-links {
+        display: none;
+      }
+
+      .nav .button {
+        min-height: 40px;
+        padding-inline: 14px;
+      }
+
+      .hero {
+        gap: 54px;
+        padding-block: 70px 66px;
+      }
+
+      .hero h1 {
+        font-size: clamp(3.15rem, 16vw, 5rem);
+      }
+
+      .hero-actions .button {
+        width: 100%;
+      }
+
+      .system-card {
+        transform: none;
+      }
+
+      .system-body {
+        padding: 20px;
+      }
+
+      .focus-row {
+        grid-template-columns: 75px minmax(0, 1fr);
+      }
+
+      .focus-status {
+        display: none;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+      }
+
+      .metric,
+      .metric:first-child,
+      .metric:nth-child(3),
+      .metric:last-child {
+        min-height: 128px;
+        padding: 27px 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .metric:last-child {
+        border-bottom: 0;
+      }
+
+      .section-header {
+        margin-bottom: 36px;
+      }
+
+      .project-card {
+        min-height: auto;
+      }
+
+      .project-card h3 {
+        margin-top: 44px;
+      }
+
+      .role {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+
+      .role-date br {
+        display: none;
+      }
+
+      .skills-grid,
+      .education-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .skill-group,
+      .skill-group:nth-child(2) {
+        min-height: 0;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .skill-group:last-child {
+        border-bottom: 0;
+      }
+
+      .skill-icon {
+        margin-bottom: 28px;
+      }
+
+      .contact-card {
+        border-radius: 24px;
+      }
+
+      .contact-links,
+      .contact-links .button {
+        width: 100%;
+      }
+
+      .footer {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+      }
+
+      .js .reveal {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Ching Tien",
+    "url": "https://chingtien.github.io/",
+    "jobTitle": "Business Intelligence Engineer and Data Scientist",
+    "worksFor": {
+      "@type": "Organization",
+      "name": "ACI Communications"
+    },
+    "alumniOf": [
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "Stony Brook University"
+      },
+      {
+        "@type": "CollegeOrUniversity",
+        "name": "National Taiwan University"
+      }
+    ],
+    "sameAs": [
+      "https://github.com/chingtien",
+      "https://www.linkedin.com/in/chingtien/"
+    ],
+    "knowsAbout": [
+      "Product Analytics",
+      "Decision Science",
+      "Behavioral Science",
+      "Experimentation",
+      "Business Intelligence",
+      "Python",
+      "SQL"
+    ]
+  }
+  </script>
+</head>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header" id="site-header">
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="Ching Tien, home">
+        <span class="brand-mark" aria-hidden="true">CT</span>
+        <span>Ching Tien</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#impact">Impact</a>
+        <a href="#decision-work">Selected Work</a>
+        <a href="#experience">Experience</a>
+        <a href="#skills">Skills</a>
+      </nav>
+
+      <a class="button button-secondary" href="mailto:workingchingching@gmail.com">Get in touch</a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="container hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-content">
+        <p class="eyebrow">Product Analytics · Decision Science</p>
+        <h1 id="hero-title">
+          Turning behavior
+          <span class="gradient-text">into better products.</span>
+        </h1>
+        <p class="hero-copy">
+          I’m <strong>Ching Tien</strong>, a data scientist and business intelligence engineer
+          with a psychology research foundation. I combine <strong>behavioral science, SQL,
+          Python, experimentation, and BI</strong> to explain what users do, why it matters,
+          and where products should go next.
+        </p>
+
+        <div class="hero-actions">
+          <a class="button button-primary" href="#decision-work">
+            Explore selected work
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="button button-secondary" href="https://github.com/chingtien" target="_blank" rel="noreferrer">
+            GitHub
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 4h5v5M10 14 20 4M20 13v6a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1h6"/></svg>
+          </a>
+        </div>
+
+        <div class="availability">
+          <span class="availability-dot" aria-hidden="true"></span>
+          <span>Seattle, Washington · Open to product analytics and decision science opportunities</span>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Ching's decision science framework">
+        <div class="system-card">
+          <div class="system-topbar">
+            <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+            <span>ching.analytics / framework</span>
+            <span>live</span>
+          </div>
+          <div class="system-body">
+            <p class="system-label">Decision framework</p>
+            <div class="focus-map">
+              <div class="focus-row">
+                <span class="focus-key">question</span>
+                <span class="focus-value">Behavior · Friction · Need</span>
+                <span class="focus-status">active</span>
+              </div>
+              <div class="focus-row">
+                <span class="focus-key">measure</span>
+                <span class="focus-value">SQL · Metrics · Experiments</span>
+                <span class="focus-status">active</span>
+              </div>
+              <div class="focus-row">
+                <span class="focus-key">model</span>
+                <span class="focus-value">Python · ML · Forecasting</span>
+                <span class="focus-status">active</span>
+              </div>
+              <div class="focus-row">
+                <span class="focus-key">decide</span>
+                <span class="focus-value">Product · Strategy · Action</span>
+                <span class="focus-status">active</span>
+              </div>
+            </div>
+
+            <div class="signal-visual" aria-hidden="true">
+              <svg viewBox="0 0 440 150" preserveAspectRatio="none">
+                <defs>
+                  <linearGradient id="signalGradient" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0" stop-color="#7ef0c4"/>
+                    <stop offset="0.5" stop-color="#7b8cff"/>
+                    <stop offset="1" stop-color="#a979ff"/>
+                  </linearGradient>
+                </defs>
+                <path class="signal-line" d="M0 112 C28 112,32 86,57 86 S91 124,117 98 S151 42,181 70 S217 115,244 77 S281 37,308 59 S344 111,368 75 S407 43,440 24"/>
+              </svg>
+            </div>
+
+            <div class="system-footer">
+              <span>signal: behavior</span>
+              <span>status: decision-ready</span>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <div class="metrics-wrap" id="impact">
+      <div class="container metrics" aria-label="Career impact metrics">
+        <div class="metric reveal">
+          <span class="metric-value">7<span class="accent">+</span></span>
+          <span class="metric-label">years across analytics, research, and decision support</span>
+        </div>
+        <div class="metric reveal">
+          <span class="metric-value">100K<span class="accent">+</span></span>
+          <span class="metric-label">daily player signals monitored for product health</span>
+        </div>
+        <div class="metric reveal">
+          <span class="metric-value">20<span class="accent">%</span></span>
+          <span class="metric-label">reduction in marketing costs through predictive analytics</span>
+        </div>
+        <div class="metric reveal">
+          <span class="metric-value">8<span class="accent">%</span></span>
+          <span class="metric-label">increase in audience reach from data-driven targeting</span>
+        </div>
+      </div>
+    </div>
+
+    <section class="section" id="decision-work" aria-labelledby="decision-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <p class="eyebrow">Selected decision work</p>
+            <h2 class="section-title" id="decision-title">From behavioral signals to product action.</h2>
+          </div>
+          <p class="section-intro">
+            Ching connects product behavior, business context, and technical analysis—then turns
+            the evidence into decisions that product and operations teams can use.
+          </p>
+        </div>
+
+        <div class="ai-grid">
+          <article class="project-card reveal">
+            <div class="project-meta">
+              <span class="project-number">01 / Product Analytics</span>
+              <span>Gamania</span>
+            </div>
+            <h3>A behavioral signal system for live-game decisions</h3>
+            <p>
+              Defined engagement metrics across devices and game ecosystems to anticipate revenue,
+              built cohort and retention views monitoring 100K+ players daily, and partnered with
+              producers on iterative product improvements.
+            </p>
+            <div class="tag-row" aria-label="Project technologies">
+              <span class="tag">Product Metrics</span>
+              <span class="tag">Cohort Analysis</span>
+              <span class="tag">Retention</span>
+              <span class="tag">Tableau</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-meta">
+              <span class="project-number">02 / Decision Intelligence</span>
+              <span>Doorstead</span>
+            </div>
+            <h3>Revenue and lifecycle intelligence for rental operations</h3>
+            <p>
+              Led business intelligence across revenue, pricing, and operations. Built monitoring
+              and decision views that surfaced risk, clarified performance, and supported earlier
+              action across the resident and property lifecycle.
+            </p>
+            <div class="tag-row" aria-label="Project technologies">
+              <span class="tag">Revenue Analytics</span>
+              <span class="tag">Pricing</span>
+              <span class="tag">Lifecycle Analysis</span>
+              <span class="tag">Business Intelligence</span>
+            </div>
+          </article>
+
+          <article class="project-card reveal">
+            <div class="project-meta">
+              <span class="project-number">03 / Applied ML</span>
+              <span>Adenovo</span>
+            </div>
+            <h3>Predictive growth and audience targeting</h3>
+            <p>
+              Led data work on machine-learning and segmentation workflows using Python. Converted
+              customer and marketing signals into scalable decision tools that reduced marketing
+              costs by 20% and increased audience reach by 8%.
+            </p>
+            <div class="tag-row" aria-label="Project technologies">
+              <span class="tag">Machine Learning</span>
+              <span class="tag">Segmentation</span>
+              <span class="tag">Python</span>
+              <span class="tag">Predictive Modeling</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="experience" aria-labelledby="experience-title">
+      <div class="container experience-layout">
+        <div class="experience-aside reveal">
+          <p class="eyebrow">Experience</p>
+          <h2 class="section-title" id="experience-title">One career, three lenses: people, product, data.</h2>
+          <p>
+            Cross-functional experience across technology, real estate, gaming, finance, and military behavioral health.
+          </p>
+        </div>
+
+        <div class="timeline">
+          <article class="role reveal">
+            <div class="role-date">Nov 2024<br>— Present</div>
+            <div>
+              <h3>
+                Business Intelligence Engineer
+                <span class="company">ACI Communications</span>
+              </h3>
+              <ul>
+                <li>
+                  Build decision-ready Power BI reporting and data models across sales, service,
+                  logistics, and operational workflows.
+                </li>
+                <li>
+                  Connect SharePoint, Excel, and Oracle data while improving refresh reliability,
+                  data quality, and shared KPI definitions.
+                </li>
+                <li>
+                  Translate ambiguous business questions into measurable systems with engineering
+                  and operations partners across the United States and Taiwan.
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="role reveal">
+            <div class="role-date">Oct 2025<br>— Present</div>
+            <div>
+              <h3>
+                Behavioral Health Specialist · 68X
+                <span class="company">U.S. Army Reserve</span>
+              </h3>
+              <ul>
+                <li>
+                  Support behavioral-health readiness and resilience within a Combat Stress Control unit,
+                  bringing a human-behavior lens to high-stakes, multidisciplinary work.
+                </li>
+                <li>
+                  Trained in behavioral support, clear documentation, crisis response, confidentiality,
+                  and communication across diverse service-member populations.
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="role reveal">
+            <div class="role-date">2022<br>— 2024</div>
+            <div>
+              <h3>
+                Senior Data Scientist · Operations &amp; Finance
+                <span class="company">Doorstead</span>
+              </h3>
+              <ul>
+                <li>
+                  Led revenue, pricing, and operational analysis across the rental lifecycle,
+                  connecting financial outcomes with resident and property behavior.
+                </li>
+                <li>
+                  Built automated monitoring and business-intelligence views that surfaced exceptions,
+                  clarified renewal performance, and helped teams intervene earlier.
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="role reveal">
+            <div class="role-date">2021<br>— 2022</div>
+            <div>
+              <h3>
+                Senior Data Scientist · Product Analytics
+                <span class="company">Gamania</span>
+              </h3>
+              <ul>
+                <li>
+                  Developed engagement and ecosystem metrics that connected player behavior
+                  with retention and future revenue potential.
+                </li>
+                <li>
+                  Built cohort and product-health reporting for 100K+ daily players and partnered
+                  with game producers on data-informed product improvements.
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="role reveal">
+            <div class="role-date">2020<br>— 2021</div>
+            <div>
+              <h3>
+                Lead Data Scientist
+                <span class="company">Adenovo</span>
+              </h3>
+              <ul>
+                <li>
+                  Led applied machine-learning, segmentation, and predictive-modeling work
+                  supporting product and marketing decisions.
+                </li>
+                <li>
+                  Developed scalable Python-based decision workflows that
+                  <strong>reduced marketing costs by 20% and increased audience reach by 8%</strong>.
+                </li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="role reveal">
+            <div class="role-date">Earlier</div>
+            <div>
+              <h3>
+                Data Analyst
+                <span class="company">Citibank</span>
+              </h3>
+              <ul>
+                <li>
+                  Analyzed customer and financial data to support portfolio decisions,
+                  operational reporting, and service improvement.
+                </li>
+              </ul>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section skills-section" id="skills" aria-labelledby="skills-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <p class="eyebrow">Technical toolkit</p>
+            <h2 class="section-title" id="skills-title">Tools for understanding behavior—and changing outcomes.</h2>
+          </div>
+          <p class="section-intro">
+            A blended toolkit spanning behavioral research, product measurement, predictive analytics,
+            and the systems that make insight repeatable.
+          </p>
+        </div>
+
+        <div class="skills-grid reveal">
+          <article class="skill-group">
+            <div class="skill-icon" aria-hidden="true">UX</div>
+            <h3>Product &amp; Behavior</h3>
+            <ul class="skill-list">
+              <li>Product Analytics</li>
+              <li>User Behavior</li>
+              <li>Cohort &amp; Retention</li>
+              <li>Experimentation</li>
+              <li>KPI Design</li>
+            </ul>
+          </article>
+
+          <article class="skill-group">
+            <div class="skill-icon" aria-hidden="true">{ }</div>
+            <h3>Analytics &amp; Modeling</h3>
+            <ul class="skill-list">
+              <li>SQL · Python · R · SAS</li>
+              <li>Machine Learning</li>
+              <li>NLP · OCR</li>
+              <li>Segmentation</li>
+              <li>Forecasting · Statistics</li>
+            </ul>
+          </article>
+
+          <article class="skill-group">
+            <div class="skill-icon" aria-hidden="true">BI</div>
+            <h3>BI &amp; Data Systems</h3>
+            <ul class="skill-list">
+              <li>Power BI · Tableau</li>
+              <li>Excel · VBA</li>
+              <li>ETL / ELT</li>
+              <li>Data Modeling · Warehousing</li>
+              <li>Oracle ERP</li>
+            </ul>
+          </article>
+
+          <article class="skill-group">
+            <div class="skill-icon" aria-hidden="true">→</div>
+            <h3>Decision &amp; Delivery</h3>
+            <ul class="skill-list">
+              <li>Data Storytelling</li>
+              <li>Stakeholder Management</li>
+              <li>Cross-functional Leadership</li>
+              <li>Project Management</li>
+              <li>English · Mandarin</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="education" aria-labelledby="education-title">
+      <div class="container">
+        <div class="section-header reveal">
+          <div>
+            <p class="eyebrow">Education</p>
+            <h2 class="section-title" id="education-title">Quantitative rigor, grounded in human behavior.</h2>
+          </div>
+          <p class="section-intro">
+            Psychology explains the “why.” Analytics measures the “what.” Ching’s academic foundation connects both.
+          </p>
+        </div>
+
+        <div class="education-grid">
+          <article class="education-card reveal">
+            <span class="education-year">Graduate Study</span>
+            <h3>Master of Arts in Psychology</h3>
+            <h4>Stony Brook University</h4>
+            <p>
+              Graduate research and training in behavioral science, quantitative methods,
+              decision-making, and experimental design.
+            </p>
+            <span class="award">Psychology · Decision Science</span>
+          </article>
+
+          <article class="education-card reveal">
+            <span class="education-year">Undergraduate Study</span>
+            <h3>Bachelor’s Degree</h3>
+            <h4>National Taiwan University</h4>
+            <p>
+              Interdisciplinary foundation in communication, human behavior, research design,
+              and applied data analysis.
+            </p>
+            <span class="award">Bio-Industry Communication &amp; Development</span>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="container contact-section" id="contact" aria-labelledby="contact-title">
+      <div class="contact-card reveal">
+        <h2 id="contact-title">Let’s make the next product decision count.</h2>
+        <div class="contact-bottom">
+          <p class="contact-copy">
+            Ching is interested in Decision Analyst, Product Analyst, and Product Scientist roles
+            where technical depth and behavioral insight shape better products.
+          </p>
+          <div class="contact-links">
+            <a class="button button-primary" href="mailto:workingchingching@gmail.com">Email Ching</a>
+            <a class="button button-secondary" href="https://www.linkedin.com/in/chingtien/" target="_blank" rel="noreferrer">LinkedIn</a>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <span>© <span id="year">2026</span> Ching Tien</span>
+        <div class="footer-links">
+          <a href="mailto:workingchingching@gmail.com">Email</a>
+          <a href="tel:+12063969636">Phone</a>
+          <a href="https://github.com/chingtien" target="_blank" rel="noreferrer">GitHub</a>
+        </div>
+      </footer>
+    </section>
+  </main>
+
+  <script>
+    const header = document.getElementById('site-header');
+    const year = document.getElementById('year');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    year.textContent = new Date().getFullYear();
+
+    const updateHeader = () => {
+      header.classList.toggle('scrolled', window.scrollY > 16);
+    };
+
+    updateHeader();
+    window.addEventListener('scroll', updateHeader, { passive: true });
+
+    const revealItems = document.querySelectorAll('.reveal');
+
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      revealItems.forEach((item) => item.classList.add('visible'));
+    } else {
+      const observer = new IntersectionObserver((entries, currentObserver) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            currentObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px' });
+
+      revealItems.forEach((item) => observer.observe(item));
+    }
+  </script>
+</body>
+</html>
